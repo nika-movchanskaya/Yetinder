@@ -1,0 +1,27 @@
+  
+  {{ include('yeti/header.html.twig') }}
+
+  <div class="container">      
+    <h2>Vote for the best</h2>
+  </div>
+
+  <div class="container">      
+    <div class="row">
+      <div class="col">
+        <img src="{{ yeti_photo }}" style="max-width: 40rem;">
+      </div>
+      <div class="col">
+        <h3>{{ yeti_name }}</h3>
+
+        <p>Height, cm: {{ yeti_height }}</p>
+        <p>Weight, kg: {{ yeti_weight }}</p>
+        <p>Where can you find: {{ yeti_address }}</p>
+
+        <div class="form-vote">
+          {{ form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include('yeti/footer.html.twig') }}

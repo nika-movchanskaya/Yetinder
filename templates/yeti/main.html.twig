@@ -1,0 +1,51 @@
+
+  
+  {% for message in app.flashes('notice') %}
+    <script>
+      alert('{{ message }}');
+    </script>
+  {% endfor %}
+
+  {{ include('yeti/header.html.twig') }}
+
+  <div class="container">
+    <h2>Best Yetis</h2>
+    <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Rating</th>
+        <th scope="col">Name</th>
+        <th scope="col">Height</th>
+        <th scope="col">Weight</th>
+        <th scope="col">Where lives</th>
+        <th scope="col">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% set yeti_id = 1 %}
+      {% for key, value in rows %}
+        <tr>
+          {% for key1, value1 in value %}
+
+            {% if key1|trim == "id" %}
+              {% set yeti_id = value1 %}
+            {% else %}
+              <td>{{ value1 }}</td>
+            {% endif %}
+
+          {% endfor %}
+            <td> 
+              <a class="btn btn-info" href="/my_project/public/yeti/{{ yeti_id }}" role="button">View</a>
+            </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <h2>Met another one?</h2>
+    <a class="btn btn-info" href="/my_project/public/add" role="button">Add</a>
+  </div>
+
+  {{ include('yeti/footer.html.twig') }}

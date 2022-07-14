@@ -1,0 +1,27 @@
+  
+  {{ include('yeti/header.html.twig') }}
+
+  <div class="container">      
+    <h2>{{ yeti_name }}</h2>
+  </div>
+
+  <div class="container">      
+    <div class="row">
+      <div class="col">
+        <img src="{{ yeti_photo }}" style="max-width: 40rem;">
+      </div>
+      <div class="col">
+        <h3>Some more facts</h3>
+
+        <p>Height, cm: {{ yeti_height }}</p>
+        <p>Weight, kg: {{ yeti_weight }}</p>
+        <p>Where can you find: {{ yeti_address }}</p>
+
+        <a class="btn btn-info" href="/my_project/public/vote/{{ yeti_id }}" role="button">Vote</a>
+        <a class="btn btn-info" href="/my_project/public/stat/{{ yeti_id }}" role="button">See statistics</a>
+
+      </div>
+    </div>
+  </div>
+
+  {{ include('yeti/footer.html.twig') }}
