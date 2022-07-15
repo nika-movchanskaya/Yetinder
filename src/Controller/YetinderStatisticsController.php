@@ -1,13 +1,9 @@
 <?php
 namespace App\Controller;
 
-//use App\Entity\Vote;
-//use App\Entity\User;
 use App\Entity\Period;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-//use Symfony\Component\Form\Extension\Core\Type\TextType;
-//use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,9 +21,6 @@ class YetinderStatisticsController extends AbstractController
 
     public function stat(int $yeti_id, ChartBuilderInterface $chartBuilder, Request $request, Connection $connection, SessionInterface $session): Response
     {
-
-        //просуммируем рейтинг до старт дэйт - начальный рейтинг
-        //считаем изменениеи рейтинга по дням, которые есть в таблице рейтинга
 
         //Set date period
         $period = new Period();
@@ -87,11 +80,6 @@ class YetinderStatisticsController extends AbstractController
         $session->set('end_date', $end_date);
 
         //Calculating rating for our Yeti before this period
-        //$sql_prev = 'select Yetis.id, name, sum(Rating.vote) as rating_prev
-        //from Yetis inner join Rating on Yetis.id = Rating.yeti_id
-        //where Yetis.id = '.$yeti_id.'
-        //and date < "'.$start_date.'"'; 
-
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder
             ->select('y.id', 'name', 'sum(r.vote) as rating_prev')
@@ -113,13 +101,6 @@ class YetinderStatisticsController extends AbstractController
         }
 
         //Calculating ratings for our Yeti in each day of this period 
-        //$sql = 'select Yetis.id, name, sum(Rating.vote) as delta, date 
-        //from Yetis inner join Rating on Yetis.id = Rating.yeti_id
-        //where Yetis.id = '.$yeti_id.'
-        //and date >= "'.$start_date.'"
-        //and date < "'.$end_date.'"
-        //group by date';
-
         $queryBuilder2 = $connection->createQueryBuilder();
         $queryBuilder2
             ->select('y.id', 'name', 'sum(r.vote) as delta', 'date')
@@ -149,6 +130,8 @@ class YetinderStatisticsController extends AbstractController
             }
         }
         else {
+
+            //if we don't have statistics for current period, ask to select another one
             return $this->render('yeti/stat.html.twig', [
                 'form' => $form->createView(), 'dates' => [], 'rates' => [], 'message' => "Sorry, we don't have values for this period, please select another one", 'yeti_name' => $yeti_name
              ]);

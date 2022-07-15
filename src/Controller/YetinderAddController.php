@@ -85,10 +85,6 @@ class YetinderAddController extends AbstractController
 
             $res = $queryBuilder->execute();
 
-            $this->addFlash(
-                'notice',
-                'Great! New Yeti was saved:)'
-            );
             return $this->redirectToRoute('app_main');
         }
 

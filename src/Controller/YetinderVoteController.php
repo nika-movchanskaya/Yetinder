@@ -184,10 +184,6 @@ class YetinderVoteController extends AbstractController
                     }
 
                     else {
-                        $this->addFlash(
-                            'notice',
-                            'Thanks for your vote:)'
-                        );
                         return $this->redirectToRoute('app_main');
                     }
                 }
